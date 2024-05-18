@@ -1,16 +1,17 @@
-import HomePage from './components/HomePage'
-import './App.css'
+import React from 'react';
+import HomePage from './components/HomePage';
+import Navbar from './components/Navbar';
+import HomeSection from './components/HomeSection';
 
-function App() {
-  
-
+const App = () => {
   return (
     <>
-      <div >
-          <HomePage />
+       <Navbar />
+      <div > {/* Adjust padding as needed */}
+        <HomeSection />
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
