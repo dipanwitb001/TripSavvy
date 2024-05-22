@@ -5,7 +5,7 @@ import Sea from '../images/sea.jpg';
 import Forest from '../images/forest.jpg';
 import Button from './Button';
 
-function IndividualIntervalsExample() {
+function HomeSection() {
   return (
     <Carousel>
       <Carousel.Item interval={1000}>
@@ -33,7 +33,7 @@ function IndividualIntervalsExample() {
   );
 }
 
-export default IndividualIntervalsExample;
+export default HomeSection;
 
 
 // className="absolute bottom-1/4 transform -translate-y-1/2 text-center" explaintion

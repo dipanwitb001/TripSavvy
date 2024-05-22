@@ -1,34 +1,96 @@
-import React from 'react'
-import MenuIcon from '@mui/icons-material/Menu';
-import Logo from '../images/Logo.png'
+
+
+
+
+import React, { useState, useRef, useEffect } from 'react';
+//import Link from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu'; // Make sure to import your icons
 import SearchIcon from '@mui/icons-material/Search';
-import PersonPinIcon from '@mui/icons-material/PersonPin';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
- import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PersonPinIcon from '@mui/icons-material/PersonPin';
+import Menubar from './Menubar'; // Adjust the path according to your file structure
 
 const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current) {
+        //closeMenu();
+        console.log(menuRef.current);
+      }
+    };
+
+    window.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
-        <div className='shadow-md w-full h-32 fixed top-0 left-0 z-10 md:flex items-center justify-between py-2 md:px-10 px-7 bg-gray-900 bg-opacity-50'>
-          <div className='flex items-center'>
-            <MenuIcon className='stroke-yellow-500' />
-            <h1 className='w-48 h-36 text-4xl p-10 text-white'>Trip<span className='text-5xl text-orange-800 italic'>S</span>av<span className='text-5xl text-orange-800 font-bold'>v</span>y</h1>
-          </div>
+    <div className='shadow-md w-full h-32 fixed top-0 left-0 z-10 md:flex items-center justify-between py-2 md:px-10 px-7 bg-gray-900 bg-opacity-50'>
+      <div className='flex items-center'>
+        <MenuIcon className='stroke-neutral-500 transform transition-transform duration-300 hover:scale-110 hover:stroke-slate-300' onClick={toggleMenu} />
+        <h1 className='w-48 h-36 text-4xl p-10 text-white'>
+          Trip<span className='text-5xl text-orange-800 italic'>S</span>av<span className='text-5xl text-orange-800 font-bold'>v</span>y
+        </h1>
+      </div>
 
-          <div className='md:flex md:items-center relative w-3/6'>
-              <input type="text" placeholder='Search' className=' w-10/12 h-7 border border-orange-300 rounded-xl relative  px-px  '/>
-              <SearchIcon className='stroke-yellow-500 relative  w-12 ml-2 h-9 hover:stroke-orange-600 hover:bg-orange-200 hover:rounded-full' />
-          </div>
+      <div className='md:flex md:items-center relative w-3/6'>
+        <input type="text" placeholder='Search' className='w-10/12 h-7 border border-orange-300 rounded-xl relative px-px' />
+        <SearchIcon className='stroke-yellow-500 relative w-12 ml-2 h-9 hover:stroke-orange-600 hover:bg-orange-200 hover:rounded-full' />
+      </div>
 
-          <div className='flex justify-between '>
-             <ShoppingCartIcon className='stroke-yellow-500 hover:stroke-orange-500 relative mr-3 text-8xl'/>
-             <CircleNotificationsIcon className='stroke-yellow-500 hover:stroke-orange-500 mr-3 hover:bg-orange-300 hover:border-x-2 hover:rounded-3xl'/>
-             <PersonPinIcon className='stroke-yellow-500  hover:stroke-orange-500 mr-3'/>
-            </div>
+
+      <div className='flex justify-between'>
+            <NavLink 
+              to="/cart"
+              className="stroke-white mr-3 transform transition-transform duration-300 hover:scale-150 hover:stroke-neutral-300" >
+              <ShoppingCartIcon />
+            </NavLink>
+            {/* <ShoppingCartIcon className='stroke-white h-12 transform transition-transform duration-300 hover:scale-150 hover:stroke-neutral-300 relative mr-3 text-8xl' /> */}
+            {/* <CircleNotificationsIcon className='stroke-white mr-3 transform transition-transform duration-300 hover:scale-150 hover:stroke-neutral-300' />
+            <PersonPinIcon className='stroke-white transform transition-transform duration-300 hover:scale-150 hover:stroke-neutral-300 mr-3' /> */}
+            <NavLink 
+              to="/notifications"
+              className="stroke-white mr-3 transform transition-transform duration-300 hover:scale-150 hover:stroke-neutral-300">
+              <CircleNotificationsIcon />
+            </NavLink>
+          
+            <NavLink 
+              to="/profile"
+              className="stroke-white transform transition-transform duration-300 hover:scale-150 hover:stroke-neutral-300 mr-3">
+              <PersonPinIcon />
+            </NavLink>
+      </div>
+
+      {isMenuOpen && (
+        <div ref={menuRef}>
+          <Menubar />
         </div>
-  )
-}
+      )}
+    </div>
+  );
+};
 
-export default Navbar
+export default Navbar;
+
+
+
+
+
+
 
 
 
