@@ -69,7 +69,7 @@ const Navbar = () => {
             </NavLink>
           
             <NavLink 
-              to="/profile"
+              to="/signin"
               className="stroke-white transform transition-transform duration-300 hover:scale-150 hover:stroke-neutral-300 mr-3">
               <PersonPinIcon />
             </NavLink>

@@ -10,9 +10,10 @@ import Layout from './Layout.jsx';
 import HomeSection from './components/HomeSection.jsx';
 import Notification from './components/Notification.jsx';
 import SignIn from './components/SignIn.jsx';
-import About from './components/About/About.jsx';
+import About from './components/About.jsx';
 import Service from './components/Service/Service.jsx';
 import Contact from './components/Contact/Contact.jsx';
+import Mountain from './components/Mountain.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,9 +22,11 @@ const router = createBrowserRouter(
       <Route path='/home' element={<HomeSection/>} />
       <Route path='/cart' element={<Cart />} />
       <Route path='/notifications' element={<Notification />} />
+      <Route path='/signin' element={<SignIn />} />
       <Route path='/about' element={<About />} />
       <Route path='/service' element={<Service />} />
       <Route path='/contact' element={<Contact />} />
+      {/* <Route path='/mountain' element={<Mountain />} /> */}
     </Route>
   )
 )
