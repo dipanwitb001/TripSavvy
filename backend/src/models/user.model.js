@@ -34,10 +34,6 @@ const userSchema = new Schema(
             type : String,
             required : [true,"password is required"]
         },
-        confirmPassword :{
-            type : String,
-            required : [true,"password is required"]
-        },
         refreshToken :{
             type : String
         }
@@ -57,7 +53,7 @@ userSchema.pre("save",async function(next) {
     // this is done because ,otherwise whenever user clicks on the save(for any purpose maybe after updating username ), the password will be hashed
     if(!this.isModified("password")) return next();
 
-    this.password=bcrypt.hash(this.password,10)
+    this.password= await bcrypt.hash(this.password,10)
     next()
 })
 

@@ -63,21 +63,161 @@
 import React, { useState } from 'react';
 import signIn from '../images/signIn.jpg';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Validation from './LoginValidation';
 
 const SignIn = () => {
   const [action, setAction] = useState('Sign Up');
  //const [phoneNumber, setPhoneNumber] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (action === 'Login') {
-      console.log('Logging in...');
-      // Handle login logic here
-    } else if (action === 'Sign Up') {
-      console.log('Signing up...');
-      // Handle sign-up logic here
-    }
-  };
+ const [values,setValues] = useState({
+  fullName: '',
+  username: '',
+  phoneNumber: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  })
+
+  const [errors, setErrors] = useState({});
+
+  // const handleInput = (event) = {
+  //   setValues((prev) => ({ ...prev,[event.target.name]: event.target.value}))
+  // }
+
+  // const handleInput = (event) => {
+  //   const { name, value } = event.target;
+  //   setValues((prev) => ({ ...prev, [name]: value }));
+  // };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   if (action === 'Login') {
+  //     console.log('Logging in...');
+  //     // Handle login logic here
+  //   } else if (action === 'Sign Up') {
+  //     console.log('Signing up...');
+  //     // Handle sign-up logic here
+  //   }
+  // };
+
+//  const handleSignup = () =>{
+//   console.log('Signing up...');
+//  }
+
+const handleInput = (event) => {
+  setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+};
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+  setErrors(Validation(values));
+
+  if (!errors.name && !errors.email && !errors.password) {
+    axios
+      .post('http://localhost:8000/api/v1/user/register', values)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }
+};
+
+   
+  
+  
+
+
+
+
+  // return (
+  //   <div>
+  //     <div className="relative w-screen h-screen overflow-hidden">
+  //       <img src={signIn} alt="Background" className="absolute top-0 left-0 w-full h-full object-cover" />
+
+  //       {/* Dark Overlay */}
+  //       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+
+  //       <div className='bg-slate-800 border border-slate-400 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative w-3/12 mx-auto my-auto top-1/2 transform -translate-y-1/2'>
+  //         <form onSubmit={handleSubmit}>
+  //           <h1 className="text-white mb-4 text-2xl font-bold text-center">{action}</h1>
+  //           {action === 'Login' ? <div></div> :
+  //              <div >
+
+  //               <div className='mb-4'>
+  //              <label htmlFor="name" className="block text-white">Full Name</label>
+  //              <input type="name" id="name" required className="w-full p-2 mt-1 rounded-md bg-gray-200" />
+  //              </div>
+
+  //             <div className='mb-4'>
+  //              <label htmlFor="name" className="block text-white">User Name</label>
+  //              <input type="name" id="name" required className="w-full p-2 mt-1 rounded-md bg-gray-200" />
+  //              </div>
+
+  //             <div className='mb-4'>
+  //              <label htmlFor="number" required className="block text-white">Phone no.</label>
+  //              <input
+  //               type="tel"
+  //               id="phone"
+  //               className="w-full p-2 mt-1 rounded-md bg-gray-200"
+  //               placeholder="Enter your phone number"
+  //               required
+  //             />
+  //              </div>
+
+  //            </div>
+  //           }
+           
+  //           <div className="mb-4">
+  //             <label htmlFor="email" className="block text-white">Your Email</label>
+  //             <input type="email" id="email" className="w-full p-2 mt-1 rounded-md bg-gray-200" />
+  //           </div>
+  //           <div className="mb-4">
+  //             <label htmlFor="password" className="block text-white">Password</label>
+  //             <input type="password" id="password" className="w-full p-2 mt-1 rounded-md bg-gray-200" />
+  //           </div>
+  //           {action === 'Login'? <div></div>:
+  //             <div >
+  //               <div className="mb-4">
+  //                 <label htmlFor="password" className="block text-white">Confirm Password</label>
+  //                 <input type="password" id="password" className="w-full p-2 mt-1 rounded-md bg-gray-200" />
+  //               </div>
+  //               <div>
+  //               <input type="checkbox" id="rememberMe" className="mr-2" />
+  //               <label htmlFor="rememberMe" className="text-white">I agree to the <span className='font-bold'>Terms of User</span></label>
+  //             </div>
+  //           </div>
+  //           }
+  //           {action === 'Sign Up'? <div></div> :
+  //             <div className="mb-4 flex items-center justify-between">
+  //             <div>
+  //               <input type="checkbox" id="rememberMe" className="mr-2" />
+  //               <label htmlFor="rememberMe" className="text-white">Remember Me</label>
+  //             </div>
+  //             <Link to="/forget-password" className="text-blue-500 cursor-pointer">Forget Password</Link>
+  //           </div>
+  //           }
+            
+  //           <div className='flex justify-between'>
+  //             <button
+  //               type='submit'
+  //               className={`w-3/6 p-2 mt-4 mr-1 text-white rounded-md ${action === 'Login' ? 'bg-gray-500' : 'bg-blue-500'}`}
+  //               onClick={() => setAction('Login')}
+  //               onSubmit={}
+  //             >
+  //               Login
+  //             </button>
+  //             <button
+  //               type='submit'
+  //               className={`w-3/6 p-2 mt-4 mr-1 text-white rounded-md ${action === 'Sign Up' ? 'bg-gray-500' : 'bg-blue-500'}`}
+  //               onClick={() => setAction('Sign Up')}
+  //             >
+  //               Sign Up
+  //             </button>
+  //           </div>
+  //         </form>
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 
   return (
     <div>
@@ -89,13 +229,19 @@ const SignIn = () => {
 
         <div className='bg-slate-800 border border-slate-400 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative w-3/12 mx-auto my-auto top-1/2 transform -translate-y-1/2'>
           <form onSubmit={handleSubmit}>
-            <h1 className="text-white mb-4 text-2xl font-bold text-center">{action}</h1>
-            {action === 'Login' ? <div></div> :
+            <h1 className="text-white mb-4 text-2xl font-bold text-center">Sign Up</h1>
+            {/* {action === 'Login' ? <div></div> : */}
                <div >
 
                 <div className='mb-4'>
                <label htmlFor="name" className="block text-white">Full Name</label>
-               <input type="name" id="name" required className="w-full p-2 mt-1 rounded-md bg-gray-200" />
+               <input 
+               type="name" 
+               id="name" 
+               name='fullName' 
+               onChange={handleInput}
+               required 
+               className="w-full p-2 mt-1 rounded-md bg-gray-200" />
                </div>
 
               <div className='mb-4'>
@@ -152,6 +298,7 @@ const SignIn = () => {
                 type='submit'
                 className={`w-3/6 p-2 mt-4 mr-1 text-white rounded-md ${action === 'Login' ? 'bg-gray-500' : 'bg-blue-500'}`}
                 onClick={() => setAction('Login')}
+                onSubmit={}
               >
                 Login
               </button>
