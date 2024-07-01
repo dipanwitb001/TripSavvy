@@ -52,9 +52,9 @@ function Validation(values){
     {
         error.phoneNumber = "phone Number should not be empty"
     }
-    else if (!phonePattern.test(values.email)) {
-        error.phoneNumber = "phone number did not match"
-    }
+    // else if (!phonePattern.test(values.phoneNumber)) {
+    //     error.phoneNumber = "phone number did not match"
+    // }
     else
     {
         error.phoneNumber = ""
@@ -74,7 +74,7 @@ function Validation(values){
     {
         error.fullName = "Confirm Password cannot be empty"
     }
-    else if (confirmPassword !== password)
+    else if (values.confirmPassword !== values.password)
         {
             error.confirmPassword="password didnot match"
         }

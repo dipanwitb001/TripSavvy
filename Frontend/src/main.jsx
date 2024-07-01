@@ -14,6 +14,7 @@ import About from './components/About.jsx';
 import Service from './components/Service/Service.jsx';
 import Contact from './components/Contact/Contact.jsx';
 import Mountain from './components/Mountain.jsx';
+import Login from './components/Login.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       <Route path='/about' element={<About />} />
       <Route path='/service' element={<Service />} />
       <Route path='/contact' element={<Contact />} />
+      <Route path='/login' element={<Login />} />
       {/* <Route path='/mountain' element={<Mountain />} /> */}
     </Route>
   )
