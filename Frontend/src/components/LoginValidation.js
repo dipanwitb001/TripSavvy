@@ -1,4 +1,4 @@
-function Validation(values){
+function Validation(values, ischeckboxChecked){
     let error = {}
     const email_patterns=/^[^\s@]+@[^\s@]+\.[^\s@]+$/  //regrex pattern for email addresses
 
@@ -82,7 +82,10 @@ function Validation(values){
     {
         error.confirmPassword = ""
     }
-    
+    if(!ischeckboxChecked){
+        error.checkbox = "You must agree to the Terms of Use"
+    }
+
     return error;
 
 

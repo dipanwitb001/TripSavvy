@@ -186,6 +186,10 @@ const SignIn = () => {
   const [errors, setErrors] = useState({});
   const [isCheckboxChecked, setCheckboxChecked] = useState(false);
 
+
+  const[isAccountCreated, setAccountCreated] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
 const handleInput = (event) => {
   const{name,value,type,checked} = event.target;
   if(type === 'checkbox')
@@ -203,18 +207,35 @@ const handleSubmit = (event) => {
   //setErrors(Validation(values));
 
   const validationErrors = Validation(values);
-    if (!isCheckboxChecked) {
-      validationErrors.checkbox = "You must agree to the Terms of Use";
-    }
+    // if (!isCheckboxChecked) {
+    //   validationErrors.checkbox = "You must agree to the Terms of Use";
+    // }
     
     setErrors(validationErrors);
-
-
-  if (!errors.fullName && !errors.username && !errors.phoneNumber && !errors.email && !errors.password && !errors.confirmPassword) {
+    // !errors.fullName && !errors.username && !errors.phoneNumber && !errors.email && !errors.password && !errors.confirmPassword
+    // !Object.keys(validationErrors).length
+  if (!errors.fullName && !errors.username && !errors.phoneNumber && !errors.email && !errors.password && !errors.confirmPassword && !errors.checkbox) {
     axios
       .post('http://localhost:8000/api/v1/users/register', values)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        console.log(res);
+        setAccountCreated(true);
+        setSuccessMessage('Account created successfully'); //display success message
+
+        // reseting the form fields
+        setValues({
+          fullName: '',
+          username: '',
+          phoneNumber: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+        });
+      } )
+      .catch((err) => {
+        console.log(err);
+        setAccountCreated(false);
+      });
   }
 };
 
@@ -247,8 +268,35 @@ const handleSubmit = (event) => {
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
 
         <div className='bg-slate-800 border border-slate-400 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative w-3/12 mx-auto my-auto top-1/2 transform -translate-y-1/2'>
+
+         {/* Display Success Message */}
+            { isAccountCreated && (
+              <div>
+              <div className="mb-4 p-2  text-green-400 rounded-md">
+                {successMessage}
+              </div>
+              <Link to="/Login">
+              <button
+                type='button'
+                className="w-1 p-2 mt-4 mr-1 text-white rounded-md bg-blue-500"
+                //onClick={() => setAction('Login')}
+                
+              >
+                Login
+              </button>
+              </Link>
+              </div>
+            )}
+          {!isAccountCreated && (
+
+              
           <form onSubmit={handleSubmit}>
             <h1 className="text-white mb-4 text-2xl font-bold text-center">Sign Up</h1> 
+
+
+           
+
+
                <div >
 
                 <div className='mb-4'>
@@ -257,6 +305,7 @@ const handleSubmit = (event) => {
                type="text" 
                id="fullname" 
                name='fullName' 
+               value={values.fullName}
                required 
                onChange={handleInput}
                className="w-full p-2 mt-1 rounded-md bg-gray-200" />
@@ -269,6 +318,7 @@ const handleSubmit = (event) => {
                type="name" 
                id="username" 
                name='username'
+               value={values.username}
                onChange={handleInput}
                required 
                className="w-full p-2 mt-1 rounded-md bg-gray-200" />
@@ -282,6 +332,7 @@ const handleSubmit = (event) => {
                 id="phone"
                 name='phoneNumber'
                 onChange={handleInput}
+                value={values.phoneNumber}
                 className="w-full p-2 mt-1 rounded-md bg-gray-200"
                 placeholder="Enter your phone number"
                 required
@@ -299,6 +350,7 @@ const handleSubmit = (event) => {
               id="email"
               name='email'
               onChange={handleInput}
+              value={values.email}
               required
               className="w-full p-2 mt-1 rounded-md bg-gray-200" />
               {errors.email && <span className='text-red-700'>{errors.email}</span>}
@@ -310,6 +362,7 @@ const handleSubmit = (event) => {
               id="password" 
               name='password'
               onChange={handleInput}
+              value={values.password}
               className="w-full p-2 mt-1 rounded-md bg-gray-200" />
               {errors.password && <span className='text-red-700'>{errors.password}</span>}
             </div>
@@ -321,6 +374,7 @@ const handleSubmit = (event) => {
                   type="password" 
                   id="confirmPassword"
                   onChange={handleInput}
+                  value={values.confirmPassword}
                   name='confirmPassword'
                   className="w-full p-2 mt-1 rounded-md bg-gray-200" />
                   {errors.confirmPassword && <span className='text-red-700'>{errors.confirmPassword}</span>}
@@ -329,7 +383,7 @@ const handleSubmit = (event) => {
                 <div>
                 <input type="checkbox" id="rememberMe" className="mr-2" />
                 <label htmlFor="rememberMe" className="text-white">I agree to the <span className='font-bold'>Terms of User</span></label>
-                
+                {errors.checkbox && <span className='text-red-700'>{errors.checkbox}</span>}
                 </div>
             </div>
             
@@ -356,6 +410,7 @@ const handleSubmit = (event) => {
               </button>
             </div>
           </form>
+           ) }
         </div>
       </div>
     </div>
