@@ -90,6 +90,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import bcrypt from "bcrypt";
 
 const registerUser = asyncHandler(async (req, res) => {
     // Extract user details from the request body
@@ -152,4 +153,40 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 });
 
-export { registerUser };
+const loginUser = asyncHandler(async(req,res) => {
+        const {username,email,password} = req.body;
+        console.log("Headers:", req.headers);
+        console.log("Body:", req.body);
+        console.log("Multer processed fields:", req.body);
+        console.log("Request body",req.body);
+
+        if([username, email, password].some(field => field?.trim() === "")){
+            throw new ApiError(400, "All fields are required");
+        }
+
+
+        // const normalizedEmail = email.toLowerCase();
+        const existedUser = await User.findOne({
+            email: email
+        }).select('password');
+
+        console.log(existedUser);
+
+        if(!existedUser){
+            throw new ApiError(405,"Email is not registered");
+        }
+
+        const isMatch = await bcrypt.compare(password,existedUser.password);
+        //const pass = await existedUser.select('password');
+
+        if(!isMatch)
+            {
+                throw new ApiError(406,"Passwords do not match");
+            }
+        
+        return res.status(201).json(
+            new ApiResponse(202,{fullName:existedUser.fullName},"User logged in successfully")
+        )
+}) ;
+
+export { registerUser, loginUser };

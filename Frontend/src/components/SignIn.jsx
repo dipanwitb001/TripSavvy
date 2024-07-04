@@ -355,6 +355,8 @@ const handleSubmit = (event) => {
               className="w-full p-2 mt-1 rounded-md bg-gray-200" />
               {errors.email && <span className='text-red-700'>{errors.email}</span>}
             </div>
+
+            
             <div className="mb-4">
               <label htmlFor="password" className="block text-white">Password</label>
               <input 
