@@ -59,7 +59,7 @@ userSchema.pre("save",async function(next) {
 
 // method is called isPasswordCorrect and is intended to verify whether a given password matches the stored hashed password for a user
 
-userSchema.method.isPasswordCorrect = async function(password) {
+userSchema.methods.isPasswordCorrect = async function(password) {
 
     return await bcrypt.compare(password,this.password)
 
@@ -69,7 +69,7 @@ userSchema.method.isPasswordCorrect = async function(password) {
 
 
 userSchema.methods.generateAccessToken = function(){
-    jwt.sign(
+   return jwt.sign(
         {
             _id: this._id,
             email: this.email,
@@ -85,14 +85,14 @@ userSchema.methods.generateAccessToken = function(){
 }
 
 userSchema.methods.generateRefreshToken = function(){
-    jwt.sign(
+    return jwt.sign(
         {
             _id: this._id,
 
         },
-        process.env.ACCESS_REFRESH_SECRET,
+        process.env.REFRESH_TOKEN_SECRET,
         {
-            expiresIn: process.env.ACCESS_REFRESH_EXPIRY
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
         }
     )
 }

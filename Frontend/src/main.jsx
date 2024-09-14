@@ -11,7 +11,7 @@ import HomeSection from './components/HomeSection.jsx';
 import Notification from './components/Notification.jsx';
 import SignIn from './components/SignIn.jsx';
 import About from './components/About.jsx';
-import Service from './components/Service/Service.jsx';
+import Service from './components/Service.jsx';
 import Contact from './components/Contact/Contact.jsx';
 import Mountain from './components/Mountain.jsx';
 import Login from './components/Login.jsx';

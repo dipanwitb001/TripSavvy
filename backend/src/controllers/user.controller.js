@@ -92,6 +92,32 @@ import { User } from "../models/user.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import bcrypt from "bcrypt";
 
+const generateAccessAndRefreshToken = async(usedId) =>{
+    try{
+
+        const user = await User.findById(usedId);
+        const accessToken= user.generateAccessToken();
+        const refreshToken=user.generateRefreshToken();
+
+        // after generating refresh token, we need to to save it in the database so that the user dont have to enter the password again
+
+        // userschema has the refresh token field
+
+        user.refreshToken = refreshToken;
+
+        // after putting the refresh token in the database, we are saving the refresh token but while while it will check for password field which is not provided here so here we usine validateBeforeSave to false so it will not run any validation checks before saving
+        await user.save({validateBeforeSave: false});
+
+        return {accessToken, refreshToken}
+
+    }catch(error){
+        console.log(error);
+        throw new ApiError(500, "Something went wrong while generating refresh and access token");
+    }
+}
+
+
+
 const registerUser = asyncHandler(async (req, res) => {
     // Extract user details from the request body
     const { fullName, username, email, phoneNumber, password, confirmPassword } = req.body;
@@ -167,7 +193,7 @@ const loginUser = asyncHandler(async(req,res) => {
 
         // const normalizedEmail = email.toLowerCase();
         const existedUser = await User.findOne({
-            email: email
+            $or:[{username},{email}]
         }).select('password');
 
         console.log(existedUser);
@@ -176,17 +202,62 @@ const loginUser = asyncHandler(async(req,res) => {
             throw new ApiError(405,"Email is not registered");
         }
 
-        const isMatch = await bcrypt.compare(password,existedUser.password);
+        const isMatch = await existedUser.isPasswordCorrect(password);
+
+        //const isMatch = await User.isPasswordCorrect(password, existedUser.password);
+
+        // const isMatch = await bcrypt.compare(password,existedUser.password);
         //const pass = await existedUser.select('password');
 
         if(!isMatch)
             {
                 throw new ApiError(406,"Passwords do not match");
             }
+
+        const {accessToken, refreshToken} = await generateAccessAndRefreshToken(existedUser._id)
+
+        const loggedInUser = await User.findById(existedUser._id).select("-password -refreshToken");
+
+        const options ={
+            httpOnly: true,
+            secure: true
+        }
         
-        return res.status(201).json(
-            new ApiResponse(202,{fullName:existedUser.fullName},"User logged in successfully")
+        return res
+        .status(201)
+        .cookie("accessToken", accessToken,options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(
+            new ApiResponse(202,{existedUser: loggedInUser, accessToken, refreshToken},"User logged in successfully")
         )
 }) ;
 
-export { registerUser, loginUser };
+
+// to logout a user, first we need to remove the cookies and re-setting the refresh token(described in the schema)
+const logoutUser = asyncHandler(async(req,res) => {
+    await User.findByIdAndUpdate(
+        req.user._id,{
+            $set: {
+                refreshToken: undefined
+            }
+        },
+        {
+            new : true,
+        }
+    )
+
+    const options ={
+        httpOnly: true,
+        secure: true
+    }
+    
+    return res
+    .status(200)
+    .clearCookie("accesstoken",options)
+    .clearCookie("refreshtoken",options)
+    .json(
+        new ApiResponse(202,{},"User logged out successfully")
+    )
+})
+
+export { registerUser, loginUser , logoutUser};

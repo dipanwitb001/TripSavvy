@@ -2,7 +2,8 @@ import React from 'react'
 import Button from './components/Button'
 
 
-const RevImageCard = ({text,image,title,para}) => {
+const RevImageCard = ({text,image,title,para,highlight}) => {
+  const parts = para.split(new RegExp(`(${highlight})`, 'gi'));
   return (
     <>
        <div className='flex justify-center items-center p-8'>
@@ -17,7 +18,12 @@ const RevImageCard = ({text,image,title,para}) => {
           {title}
         </h1>
         <p className='text-lg leading-relaxed text-white mt-4' style={{ maxWidth: '40ch' }}>
-          {para}
+          {/* {para} <span className='text-yellow-700 font-extrabold'>{highlight}</span> */}
+          {parts.map((part, index) => 
+            part === highlight ? 
+              <span key={index} className='text-orange-300 font-bold'>{part}</span> : 
+              part
+          )}
         </p>
         <Button />
       </div>
