@@ -23,17 +23,17 @@
 import React from 'react';
 import ServiceButton from './ServiceButton';
 
-const ServiceCard = ({ image, text, title }) => {
+const ServiceCard = ({product}) => {
   return (
     <div className='flex flex-col items-center bg-white rounded-lg shadow-lg w-80 p-6 m-6 transition-transform transform hover:scale-105'>
       {/* Image Section */}
       <div className='w-full h-56'>
-        <img className='w-full h-full object-cover rounded-t-lg' src={image} alt={text} />
+        <img className='w-full h-full object-cover rounded-t-lg' src={product.image} alt={product.name} />
       </div>
       
       {/* Title Section */}
       <div className='mt-4 flex flex-row justify-between items-center'>
-        <h1 className='text-2xl font-semibold text-gray-800'>{title}</h1>
+        <h1 className='text-2xl font-semibold text-gray-800'>{product.name}</h1>
         <div className='p-1 ml-2'>
           <ServiceButton  />
         </div>

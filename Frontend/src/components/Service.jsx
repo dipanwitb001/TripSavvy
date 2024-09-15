@@ -1,10 +1,17 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import service from '../images/service.jpg';
 import ServiceCard from './ServiceCard';
 import trek from '../images/trek.jpg'
+import { ProductProvider } from './Store/ProductProvider';
 
 
 const Service = () => {
+
+
+  const {fetchProducts, products} = ProductProvider();
+  useEffect(() => {
+    fetchProducts();
+  },[fetchProducts])
   return (
     <div>
        <div className="relative w-screen min-h-screen overflow-hidden">
@@ -19,9 +26,15 @@ const Service = () => {
               Plan your memories with <span className='text-yellow-400 font-extrabold'>Us</span>
               <span className="block h-1 w-3/4 bg-white mt-2 mx-auto"></span>
               </h1>
-              <div className="bg-slate-800 border border-slate-400 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 w-4/6 mt-8 mb-12">
+              <div className="bg-slate-800 border border-slate-400 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 w-9/12 mt-8 mb-12">
               <div className='flex flex-row justify-between items-center'>
-              <ServiceCard image={trek} text="trek" title="Trekking"/>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {products.map((product) => (
+                  <ServiceCard key={product._id} product={product}/>
+                ))}
+              </div>
+              {/* <ServiceCard image={trek} text="trek" title="Trekking"/>
               <ServiceCard image={trek} text="trek" title="Trekking"/>
               <ServiceCard image={trek} text="trek" title="Trekking"/>
               </div>
@@ -29,7 +42,7 @@ const Service = () => {
               <div className='flex flex-row justify-between items-center'>
               <ServiceCard image={trek} text="trek" title="Trekking"/>
               <ServiceCard image={trek} text="trek" title="Trekking"/>
-              <ServiceCard image={trek} text="trek" title="Trekking"/>
+              <ServiceCard image={trek} text="trek" title="Trekking"/> */}
               </div>
               
               </div>
