@@ -21,21 +21,27 @@
 // export default ServiceCard
 
 import React from 'react';
+import {Link} from 'react-router-dom'
 import ServiceButton from './ServiceButton';
 
 const ServiceCard = ({product}) => {
+
+  const displayImage = product.image[0];
   return (
     <div className='flex flex-col items-center bg-white rounded-lg shadow-lg w-80 p-6 m-6 transition-transform transform hover:scale-105'>
       {/* Image Section */}
       <div className='w-full h-56'>
-        <img className='w-full h-full object-cover rounded-t-lg' src={product.image} alt={product.name} />
+        <img className='w-full h-full object-cover rounded-t-lg' src={displayImage} alt={product.name} />
       </div>
       
       {/* Title Section */}
       <div className='mt-4 flex flex-row justify-between items-center'>
         <h1 className='text-2xl font-semibold text-gray-800'>{product.name}</h1>
         <div className='p-1 ml-2'>
-          <ServiceButton  />
+         {/* <Link to={`${product.name}`}> */}
+            <ServiceButton key={product._id} product={product} />
+          {/* </Link> */}
+          
         </div>
       </div>
 

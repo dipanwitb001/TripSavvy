@@ -15,6 +15,7 @@ import Service from './components/Service.jsx';
 import Contact from './components/Contact/Contact.jsx';
 import Mountain from './components/Mountain.jsx';
 import Login from './components/Login.jsx';
+import Place from '../src/components/Pages/Place.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       <Route path='/service' element={<Service />} />
       <Route path='/contact' element={<Contact />} />
       <Route path='/login' element={<Login />} />
+      <Route path='/place/:productId' element={<Place/>} />
       {/* <Route path='/mountain' element={<Mountain />} /> */}
     </Route>
   )

@@ -16,6 +16,6 @@ export const ProductProvider = create((set) => ({
             console.log("Error fetching products: ", e);
         }
 
-        set((state) => ({ products: [...state.products, data.data] }));
+        //set((state) => ({ products: [...state.products, data.data] }));
     }
 }))
