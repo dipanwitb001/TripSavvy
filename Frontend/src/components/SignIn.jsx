@@ -216,7 +216,7 @@ const handleSubmit = (event) => {
     // !Object.keys(validationErrors).length
   if (!errors.fullName && !errors.username && !errors.phoneNumber && !errors.email && !errors.password && !errors.confirmPassword && !errors.checkbox) {
     axios
-      .post('http://localhost:8000/api/v1/users/register', values)
+      .post('https://tripsavvy-backend.onrender.com/api/v1/users/register', values)
       .then((res) => {
         console.log(res);
         setAccountCreated(true);
