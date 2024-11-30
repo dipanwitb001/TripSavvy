@@ -9,7 +9,7 @@ export const ProductProvider = create((set) => ({
     fetchProducts: async() => {
 
         try{
-            const res = await axios.post('http://localhost:8000/api/v1/products/getProducts');
+            const res = await axios.post('https://tripsavvy-backend.onrender.com/api/v1/products/getProducts');
 
             set({ products:res.data.data});
         }catch(e){
