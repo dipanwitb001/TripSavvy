@@ -1,131 +1,310 @@
-// import React from 'react';
-// import about from '../images/about-1.jpg';
+// // import React from "react";
+// // import Slider from "react-slick";
+// // import "slick-carousel/slick/slick.css";
+// // import "slick-carousel/slick/slick-theme.css";
+// // import aboutImage from "../images/about-1.jpg";
+// // import person1 from "../images/person1.jpg";
+// // import ImageCard from "../ImageCard";
 
-// const About = () => {
+// // const AboutUs = () => {
+// //   const sliderSettings = {
+// //     dots: true,
+// //     infinite: true,
+// //     speed: 500,
+// //     slidesToShow: 3,
+// //     slidesToScroll: 1,
+// //     responsive: [
+// //       {
+// //         breakpoint: 1024,
+// //         settings: {
+// //           slidesToShow: 2,
+// //         },
+// //       },
+// //       {
+// //         breakpoint: 768,
+// //         settings: {
+// //           slidesToShow: 1,
+// //         },
+// //       },
+// //     ],
+// //   };
+
+// //   return (
+// //     <div className="relative h-screen flex justify-center items-center">
+// //       {/* Background Image */}
+// //       <div
+// //         className="absolute inset-0 bg-cover bg-center"
+// //         style={{ backgroundImage: `url(${aboutImage})` }}
+// //       ></div>
+
+// //       {/* Overlay */}
+// //       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+
+// //       {/* Carousel */}
+// //       <div className="relative z-10 w-11/12 max-w-4x mx-1">
+// //         <Slider {...sliderSettings}>
+// //           <ImageCard
+// //             name="Alex Hartman"
+// //             role="Founder & Visionary Leader"
+// //             image={person1}
+// //             description="At the heart of TripSavvy is its visionary founder, Alex Hartman, a passionate traveler and seasoned industry expert."
+// //           />
+// //           <ImageCard
+// //             name="Emily Chen"
+// //             role="Social Media Manager"
+// //             image={person1}
+// //             description="Emily manages TripSavvy's social channels, bringing our journeys to life for followers worldwide."
+// //           />
+// //           <ImageCard
+// //             name="James Taylor"
+// //             role="Content Strategist"
+// //             image={person1}
+// //             description="James ensures our guides are insightful and engaging for all travelers."
+// //           />
+// //           <ImageCard
+// //             name="Rachel Kim"
+// //             role="Lead Developer"
+// //             image={person1}
+// //             description="Rachel spearheads our tech team, making the TripSavvy platform seamless and reliable."
+// //           />
+// //           <ImageCard
+// //             name="Ethan Rogers"
+// //             role="Marketing Director"
+// //             image={person1}
+// //             description="Ethan develops strategies to connect travelers with our services globally."
+// //           />
+// //         </Slider>
+// //       </div>
+// //     </div>
+// //   );
+// // };
+
+
+
+// // export default AboutUs;
+
+// import React from "react";
+// import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+// import aboutImage from "../images/about-1.jpg";
+// import person1 from "../images/person1.jpg";
+// import person2 from "../images/person2.jpg";
+// import person3 from "../images/person3.jpg";
+// import person4 from "../images/person4.jpg";
+// import person5 from "../images/person5.jpg";
+// import ImageCard from "../ImageCard";
+
+// const AboutUs = () => {
+//   const sliderSettings = {
+//     dots: true,
+//     infinite: true,
+//     speed: 500,
+//     slidesToShow: 3,
+//     slidesToScroll: 1,
+//     responsive: [
+//       {
+//         breakpoint: 1024, // Medium devices
+//         settings: {
+//           slidesToShow: 2,
+//         },
+//       },
+//       {
+//         breakpoint: 768, // Small devices
+//         settings: {
+//           slidesToShow: 1,
+//         },
+//       },
+//     ],
+//   };
+
 //   return (
-//     <div className="relative w-screen h-screen overflow-hidden">
-//       <img src={about} alt="About" className="absolute top-0 left-0 w-full h-full object-cover" />
-
-//       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
-//       <div>
-//         <h1 className='text-5xl text-white top-36 left-32 absolute font-serif italic'>Plan your memories with Us</h1>
-//         <hr className='color-white' />
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default About;
-// import React from 'react';
-// import about from '../images/about-1.jpg';
-// import ImageCard from '../ImageCard';
-// import RevImageCard from '../RevImageCard';
-// import person1 from '../images/person1.jpg';
-
-// const About = () => {
-//   return (
-//     <div className="relative w-screen h-screen overflow-hidden">
+//     <div className="relative h-screen flex flex-col justify-center items-center">
 //       {/* Background Image */}
-//       <img src={about} alt="About" className="absolute top-0 left-0 w-full h-full object-cover" />
+//       <div
+//         className="absolute inset-0 bg-cover bg-center"
+//         style={{ backgroundImage: `url(${aboutImage})` }}
+//       ></div>
 
 //       {/* Overlay */}
-//       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+//       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-//       {/* Centered Content */}
-//       <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center translate-y-36">
-//         <h1 className="text-5xl text-white font-serif text-center relative italic -translate-y-20">
-//           About Us
-//           <span className="block h-1 w-3/4 bg-white mt-2 mx-auto"></span>
-//         </h1>
-        
-//         {/* Information Box */}
-//         <div className="bg-slate-800 border border-slate-400 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 w-4/6 mt-8">
-//           {/* Add your content here */}
-//           {/* <p className="text-white text-lg"> */}
-            
-//            <ImageCard text="person1" image={person1} title="Rohit Sharma" para="At the heart of TripSavvy is its visionary founder, Alex Hartman, a passionate traveler and seasoned industry expert. With a profound love for exploring the world and an unyielding desire to share this passion with others, Alex embarked on a mission to revolutionize the way people plan and experience travel."/>
+//       <div className="flex flex-col items-center p-4 ">
+//         <h2 className="text-white">About Us</h2>
+//         <p>At TripSavvy, we are passionate about making travel seamless, inspiring, and accessible for everyone. From personalized recommendations to expertly crafted guides, we bring the world closer to you. Whether you're seeking hidden gems or planning your dream vacation, TripSavvy is your trusted partner in creating unforgettable journeys.
 
-//           <RevImageCard text="person1" image={person1} title="Rohit Sharma" para="At the heart of TripSavvy is its visionary founder, Alex Hartman, a passionate traveler and seasoned industry expert. With a profound love for exploring the world and an unyielding desire to share this passion with others, Alex embarked on a mission to revolutionize the way people plan and experience travel."/>
-//           {/* </p> */}
-//         </div>
+//         Discover the world. Discover yourself. With TripSavvy. 🌍✨</p>
+//       </div>
+
+//       {/* Carousel */}
+//       <div className="relative z-10 w-5/6 box-border items-center justify-center md:w-11/12 max-w-6xl md:max-w-4xl mx-auto px-4 overflow-hidden">
+//       <Slider {...sliderSettings}>
+//   <ImageCard
+//     name="Alex Hartman"
+//     role="Founder"
+//     image={person1}
+//     description="At the heart of TripSavvy is its visionary founder, Alex Hartman, a passionate traveler and seasoned industry expert."
+//   />
+//   <ImageCard
+//     name="Emily Chen"
+//     role="Social Media Manager"
+//     image={person2}
+//     description="Emily manages TripSavvy's social channels, bringing our journeys to life for followers worldwide."
+//   />
+//   <ImageCard
+//     name="James Taylor"
+//     role="Content Strategist"
+//     image={person3}
+//     description="James ensures our guides are insightful and engaging for all travelers."
+//   />
+//   <ImageCard
+//     name="Rachel Kim"
+//     role="Lead Developer"
+//     image={person4}
+//     description="Rachel spearheads our tech team, making the TripSavvy platform seamless and reliable."
+//   />
+//   <ImageCard
+//     name="Ethan Rogers"
+//     role="Marketing Director"
+//     image={person5}
+//     description="Ethan develops strategies to connect travelers with our services globally."
+//   />
+// </Slider>
+
 //       </div>
 //     </div>
 //   );
-// }
+// };
 
-// export default About;
+// export default AboutUs;
 
-import React from 'react';
-import about from '../images/about-1.jpg';
-import ImageCard from '../ImageCard';
-import RevImageCard from '../RevImageCard';
-import person1 from '../images/person1.jpg';
-import person2 from '../images/person2.jpg';
-import person3 from '../images/person3.jpg';
-import person4 from '../images/person4.jpg';
-import person5 from '../images/person5.jpg';
+import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import aboutImage from "../images/about-1.jpg";
+import person1 from "../images/person1.jpg";
+import person2 from "../images/person2.jpg";
+import person3 from "../images/person3.jpg";
+import person4 from "../images/person4.jpg";
+import person5 from "../images/person5.jpg";
+import ImageCard from "../ImageCard";
 
-const About = () => {
+const AboutUs = () => {
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024, // Medium devices
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 768, // Small devices
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
   return (
-    <div className="relative w-screen min-h-screen overflow-hidden">
+    <div className="relative h-auto min-h-screen flex flex-col justify-center items-center bg-gray-100 overflow-hidden -z-10">
       {/* Background Image */}
-      <img src={about} alt="About" className="absolute top-0 left-0 w-full h-full object-cover" />
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${aboutImage})` }}
+      ></div>
 
       {/* Overlay */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-      {/* Centered Content */}
-      <div className="relative w-full min-h-screen flex flex-col justify-center items-center pt-20 pb-20">
-        <h1 className="text-5xl text-white font-serif text-center relative italic mt-12">
-          Your Guide to Extraordinary Travel
-          <span className="block h-1 w-3/4 bg-white mt-2 mx-auto"></span>
-        </h1>
-        
-        {/* Information Box */}
-        <div className="bg-slate-800 border border-slate-400 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 w-4/6 mt-8 mb-12">
-          {/* Content */}
-          <ImageCard 
-            text="person1" 
-            image={person1} 
-            title="Alex Hartman" 
-            para="At the heart of TripSavvy is its visionary founder, Alex Hartman, a passionate traveler and seasoned industry expert. With a profound love for exploring the world and an unyielding desire to share this passion with others, Alex embarked on a mission to revolutionize the way people plan and experience travel."
-            highlight="founder"
-          />
-          
-          <RevImageCard 
-            text="person2" 
-            image={person2} 
-            title="Sophia Patel" 
-            para="Sophia Patel, our Head of Travel Planning, leads the charge in curating bespoke itineraries that cater to your every whim. Alex works closely with Sophia Patel, our Destination Specialist, who brings a wealth of knowledge on unique and off-the-beaten-path destinations, ensuring each trip is filled with memorable experiences.."
-            highlight="Head of Travel Planning"
-          />
-          <ImageCard 
-            text="person3" 
-            image={person3} 
-            title="Daniel Garcia" 
-            para="Daniel Garcia,Customer Support Lead, is dedicated to providing exceptional service and resolving any travel concerns with utmost care. On the technical side, Rachel Kim, our Lead Developer, ensures the smooth operation of our website, integrating the latest technology to enhance user experience, while Olivia Thompson, our UX Designer, focuses on creating an intuitive and engaging interface.."
-            highlight="Customer Support Lead"
-          />
-          
-          <RevImageCard 
-            text="person4" 
-            image={person4} 
-            title="James Taylor" 
-            para="James Taylor, our Content Strategist, crafts engaging and informative guides, articles, and visual content that inspire and inform our travelers. He collaborates with Emily Chen, our Social Media Manager, who shares these stories across our platforms, fostering a vibrant community of explorers."
-            highlight="Content Strategist"
-          />
-          <ImageCard 
-            text="person5" 
-            image={person5} 
-            title="Ethan Rogers" 
-            para="Ethan Rogers, our Marketing Director, spearheads campaigns that connect with our audience and promote our services, making sure TripSavvy remains your go-to resource for all travel needs. Each team member at TripSavvy is committed to making your journey unforgettable, from the first click to the final adventure."
-            highlight="Marketing Director"
-          />
-        </div>
+      {/* Content Section */}
+      <div className="relative z-10 text-white px-6 py-12 top-12 max-w-6xl ">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">About Us</h2>
+        <p className="text-lg md:text-xl leading-relaxed">
+          At TripSavvy, we are passionate about making travel seamless, inspiring, and accessible for everyone. From personalized recommendations to expertly crafted guides, we bring the world closer to you. Whether you're seeking hidden gems or planning your dream vacation, TripSavvy is your trusted partner in creating unforgettable journeys.
+        </p>
+        <p className="text-lg md:text-xl leading-relaxed mt-4 pb-4">
+          Discover the world. Discover yourself. With TripSavvy. 🌍✨
+        </p>
       </div>
+
+      {/* Carousel */}
+      <div className="relative z-10 w-11/12 md:w-5/6 max-w-6xl md:max-w-4xl mx-auto px-4 py-8">
+        <Slider {...sliderSettings}>
+          <ImageCard
+            name="Alex Hartman"
+            role="Founder"
+            image={person1}
+            description="At the heart of TripSavvy is its visionary founder, Alex Hartman, a passionate traveler and seasoned industry expert."
+          />
+          <ImageCard
+            name="Emily Chen"
+            role="Social Media Manager"
+            image={person2}
+            description="Emily manages TripSavvy's social channels, bringing our journeys to life for followers worldwide."
+          />
+          <ImageCard
+            name="James Taylor"
+            role="Content Strategist"
+            image={person3}
+            description="James ensures our guides are insightful and engaging for all travelers."
+          />
+          <ImageCard
+            name="Rachel Kim"
+            role="Lead Developer"
+            image={person4}
+            description="Rachel spearheads our tech team, making the TripSavvy platform seamless and reliable."
+          />
+          <ImageCard
+            name="Ethan Rogers"
+            role="Marketing Director"
+            image={person5}
+            description="Ethan develops strategies to connect travelers with our services globally."
+          />
+        </Slider>
+      </div>
+
+      <div className="relative z-10 text-right text-white px-6 py-12 max-w-6xl items-end-">
+        <h2 className="text-3xl md:text-3xl font-bold mb-4">Our Mission</h2>
+        <p className="text-lg md:text-xl leading-relaxed">
+        At TripSavvy, our mission is to make travel seamless, inspiring, and accessible for everyone. We strive to empower travelers with personalized recommendations, sustainable practices, and innovative tools to create unforgettable journeys. 🌍✨
+        </p>
+        <p className="text-lg md:text-xl leading-relaxed mt-4 pb-4">
+          Discover the world. Discover yourself. With TripSavvy. 🌍✨
+        </p>
+      </div>
+
+  
+<div className="relative bg-black bg-opacity-50 py-8">
+  <div className="flex flex-col md:flex-row justify-around text-center text-white p-2">
+    <div className="w-1/3 md:w-1/4 p-4">
+      <h3 className="text-4xl font-bold text-orange-600">500+</h3>
+      <p className="text-lg">Trips Organized</p>
+    </div>
+    <div className="w-1/3 md:w-1/4 p-4">
+      <h3 className="text-4xl font-bold text-orange-600">120+</h3>
+      <p className="text-lg">Destinations</p>
+    </div>
+    <div className="w-1/3 md:w-1/4 p-4">
+      <h3 className="text-4xl font-bold text-orange-600">1M+</h3>
+      <p className="text-lg">Happy Travelers</p>
+    </div>
+    <div className="w-1/3 md:w-1/4 p-4">
+      <h3 className="text-4xl font-bold text-orange-600">24/7</h3>
+      <p className="text-lg">Customer Support</p>
+    </div>
+  </div>
+</div>
+
     </div>
   );
-}
+};
 
-export default About;
-
+export default AboutUs;

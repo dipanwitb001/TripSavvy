@@ -5,31 +5,39 @@ import Sea from '../images/sea.jpg';
 import Forest from '../images/forest.jpg';
 import Button from './Button';
 
+// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+
 function HomeSection() {
   return (
+    <>
+    <div className='w-full h-screen transition-all duration-300 ease-in-out'>
     <Carousel>
-      <Carousel.Item interval={1000}>
-        <ExampleCarouselImage text="First slide" image={Mountain}/>
+      <Carousel.Item interval={1500}>
+        <ExampleCarouselImage text="First slide" className="max-h-full" image={Mountain}/>
         <Carousel.Caption className="absolute bottom-1/4 transform -translate-y-1/2 text-center">
-          <p  className='mb-6 text-white font-serif font-bold text-4xl'>It’s not the mountain we conquer, <span className='text-yellow-400'>BUT</span> ourselves</p>
+          <p  className='mb-6 text-white font-serif font-bold text-xl md:text-4xl'>It’s not the mountain we conquer, <span className='text-yellow-400'>BUT</span> ourselves</p>
           <Button />
         </Carousel.Caption>
       </Carousel.Item>
-      <Carousel.Item interval={1000}>
+      <Carousel.Item interval={1500}>
         <ExampleCarouselImage text="Second slide" image={Sea}/>
         <Carousel.Caption className="absolute bottom-1/4 transform -translate-y-1/2 text-center">
-          <p className='mb-6 text-white font-serif font-bold text-4xl'>Smell the sea and feel the sky. <span className='text-yellow-500'>LET</span> your soul and spirit fly.</p>
+          <p className='mb-6 text-white font-serif font-bold text-xl md:text-4xl'>Smell the sea and feel the sky. <span className='text-yellow-500'>LET</span> your soul and spirit fly.</p>
           <Button />
         </Carousel.Caption>
       </Carousel.Item>
-      <Carousel.Item interval={1000}>
+      <Carousel.Item interval={1500}>
         <ExampleCarouselImage text="Third slide" image={Forest} />
         <Carousel.Caption className="absolute bottom-1/4 transform -translate-y-1/2 text-center">
-          <p className='mb-6 text-white font-serif font-bold text-4xl'>Between every two pines is a doorway to a <span className='text-yellow-500'>NEW</span> world</p>
+          <p className='mb-6 text-white font-serif font-bold text-xl md:text-4xl'>Between every two pines is a doorway to a <span className='text-yellow-500'>NEW</span> world</p>
           <Button />
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
+    </div>
+
+    
+    </>
   );
 }
 

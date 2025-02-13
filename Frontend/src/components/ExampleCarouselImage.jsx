@@ -6,7 +6,7 @@ const ExampleCarouselImage = ({ text, image }) => {
   return (
     <div>
       <img
-        className="d-block  w-full h-2/3"
+        className="d-block  w-full h-auto object-cover"
         src={image}
         alt={text}
       />

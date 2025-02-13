@@ -1,60 +1,33 @@
-import React from 'react';
-import Button from './components/Button';
 
-const ImageCard = ({text,image,title,para,highlight}) => {
+import React from "react";
 
-  const parts = para.split(new RegExp(`(${highlight})`, 'gi'));
+const ImageCard = ({ name, role, image, description }) => {
   return (
-    <>
-      {/* <div className='flex justify-between'>
-        <div className='w-5/12 p-12 ml-10'>
-            <div className='border-8 p-2 rounded-2xl border-neutral-500'>
-                <img src={image} alt={text} />
-            </div>
-           
-        </div>
-        <div className='p-20 mr-40 '>
-            <h1 className='text-5xl text-orange-200 font-serif font-bold p-4 tracking-normal'>{title}</h1>
-            <p className='text-lg leading-relaxed text-white'>{para}</p>
-        </div>
-        <div className='flex flex-col justify-center w-1/2 p-4'>
-        <h1 className='text-5xl text-orange-200 font-serif font-bold p-4 tracking-normal'>
-          {title}
-        </h1>
-        <p className='text-lg leading-relaxed text-white' style={{ maxWidth: '40ch' }}>
-          {para}
+    <div className="w-64 h-96 bg-slate-900 opacity-50 shadow-lg rounded-lg p-5 text-center flex flex-col justify-between">
+      {/* Image Section */}
+      <div>
+        <img
+          src={image}
+          alt={name}
+          className="w-32 h-32 mx-auto rounded-full border-4 border-indigo-500 mb-4 transform transition-transform duration-300 hover:scale-125"
+        />
+      </div>
+
+      {/* Text Content Section */}
+      <div className="flex flex-col space-y-2">
+        <h2 className="text-xl font-bold text-gray-800 truncate">{name}</h2>
+        <h3 className="text-indigo-500 text-sm font-medium">{role}</h3>
+        <p className="text-white text-sm overflow-hidden text-ellipsis h-16">
+          {description}
         </p>
       </div>
 
-
-      </div> */}
-       <div className='flex justify-center items-center p-8'>
-     
-      <div className='w-5/12 p-12 ml-10'>
-            <div className='border-8 p-2 rounded-2xl border-neutral-500'>
-                <img src={image} alt={text} />
-            </div>
-           
-        </div>
-
-      {/* Text Section */}
-      <div className='flex flex-col justify-center w-1/2 p-10 ml-9'>
-        <h1 className='text-5xl text-orange-200 font-serif font-bold p-4 tracking-normal'>
-          {title}
-        </h1>
-        <p className='text-lg leading-relaxed text-white mt-4' style={{ maxWidth: '40ch' }}>
-          {/* {para} <span className='text-yellow-700 font-extrabold'>{highlight}</span> */}
-          {parts.map((part, index) => 
-            part === highlight ? 
-              <span key={index} className='text-orange-300 font-bold'>{part}</span> : 
-              part
-          )}
-        </p>
-        <Button />
-      </div>
+      {/* Button */}
+      <button className="mt-2 border-2 border-slate-700 rounded-lg p-2 transform transition-transform duration-300 hover:scale-125 bg-white">
+        Learn More
+      </button>
     </div>
-    </>
-  )
-}
+  );
+};
 
-export default ImageCard
+export default ImageCard;

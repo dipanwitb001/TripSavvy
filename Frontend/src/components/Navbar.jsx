@@ -1,23 +1,22 @@
 
 
-
-
 import React, { useState, useRef, useEffect } from 'react';
-//import Link from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import MenuIcon from '@mui/icons-material/Menu'; // Make sure to import your icons
+import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
-import Menubar from './Menubar'; // Adjust the path according to your file structure
+import Menubar from './Menubar'; // Adjust the path as needed
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen((prev) => !prev);
   };
 
   const closeMenu = () => {
@@ -26,61 +25,90 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuRef.current) {
-        //closeMenu();
-        console.log(menuRef.current);
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        closeMenu();
       }
     };
 
-    window.addEventListener('click', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      window.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
+  // const [isdarkMode, setDarkMode] = useState(false);
+
   return (
-    <div className='shadow-md w-full h-32 fixed top-0 left-0 z-10 md:flex items-center justify-between py-2 md:px-10 px-7 bg-gray-900 bg-opacity-50'>
-      <div className='flex items-center'>
-        <MenuIcon className='stroke-neutral-500 transform transition-transform duration-300 hover:scale-110 hover:stroke-slate-300' onClick={toggleMenu} />
-        <h1 className='w-48 h-36 text-4xl p-10 text-white'>
-          Trip<span className='text-5xl text-orange-800 italic'>S</span>av<span className='text-5xl text-orange-800 font-bold'>v</span>y
-        </h1>
-      </div>
+    <nav className="shadow-md bg-gray-900 bg-opacity-50 fixed top-0 left-0 w-full z-10 ">
+      
+      <div className="max-w-7xl mx-auto flex items-center justify-between py-3 px-1 dark:bg-slate-800">
+       
 
-      <div className='md:flex md:items-center relative w-3/6'>
-        <input type="text" placeholder='Search' className='w-10/12 h-7 border border-orange-300 rounded-xl relative px-px' />
-        <SearchIcon className='stroke-yellow-500 relative w-12 ml-2 h-9 hover:stroke-orange-600 hover:bg-orange-200 hover:rounded-full' />
-      </div>
+        <div className="flex flex-row justify-between items-center">
 
-
-      <div className='flex justify-between'>
-            <NavLink 
-              to="/cart"
-              className="stroke-white mr-3 transform transition-transform duration-300 hover:scale-150 hover:stroke-neutral-300" >
-              <ShoppingCartIcon />
-            </NavLink>
-            {/* <ShoppingCartIcon className='stroke-white h-12 transform transition-transform duration-300 hover:scale-150 hover:stroke-neutral-300 relative mr-3 text-8xl' /> */}
-            {/* <CircleNotificationsIcon className='stroke-white mr-3 transform transition-transform duration-300 hover:scale-150 hover:stroke-neutral-300' />
-            <PersonPinIcon className='stroke-white transform transition-transform duration-300 hover:scale-150 hover:stroke-neutral-300 mr-3' /> */}
-            <NavLink 
-              to="/notifications"
-              className="stroke-white mr-3 transform transition-transform duration-300 hover:scale-150 hover:stroke-neutral-300">
-              <CircleNotificationsIcon />
-            </NavLink>
+          {isMenuOpen ? 
+          (
+            <CloseIcon 
+            className="text-4xl text-neutral-300 transform transition-transform duration-300 hover:scale-125 hover:text-slate-200 cursor-pointer"
+            />
+          ) :
+          (<MenuIcon
+            className="text-4xl text-neutral-300 transform transition-transform duration-300 hover:scale-125 hover:text-slate-200 cursor-pointer"
+            onClick={toggleMenu}
+            aria-label="Toggle Menu"
+          />)}
+          {/* Menu Icon */}
           
-            <NavLink 
-              to="/signin"
-              className="stroke-white transform transition-transform duration-300 hover:scale-150 hover:stroke-neutral-300 mr-3">
-              <PersonPinIcon />
-            </NavLink>
-      </div>
+        
+          {/* Title */}
+          <h1
+            className="text-xl sm:text-2xl md:text-4xl font-bold text-white ml-4 flex items-center"
+            aria-label="TripSavvy Logo"
+          >
+            Trip
+            <span className="text-2xl sm:text-3xl md:text-5xl text-orange-800 italic">S</span>av
+            <span className="text-2xl sm:text-3xl md:text-5xl text-orange-800 font-bold">v</span>y
+          </h1>
+        </div>
 
+
+        {/* Search Bar */}
+        <div className="hidden md:flex flex-row items-center bg-white border border-orange-300 rounded-full w-4/12 px-3">
+          <input
+            type="text"
+            placeholder="Search"
+            className="flex-grow bg-transparent text-blue-600 outline-none border-none py-1 px-2"
+            aria-label="Search"
+          />
+          <SearchIcon className="text-yellow-500 cursor-pointer" />
+        </div>
+
+        {/* Navigation Icons */}
+        <div className="flex items-center space-x-2 md:space-x-6">
+          <NavLink to="/cart" aria-label="Cart">
+            <ShoppingCartIcon className="text-white transform transition-transform duration-300 hover:scale-150 hover:text-neutral-300 cursor-pointer" />
+          </NavLink>
+
+          <NavLink to="/" aria-label='location'>
+            <LocationOnIcon className="text-white transform transition-transform duration-300 hover:scale-150 hover:text-neutral-300 cursor-pointer"/>
+          </NavLink>
+          <NavLink to="/signin" aria-label="Sign In">
+            <PersonPinIcon className="text-white transform transition-transform duration-300 hover:scale-150 hover:text-neutral-300 cursor-pointer" />
+          </NavLink>
+        </div>
+      </div>
+     
+
+      {/* Dropdown Menu */}
       {isMenuOpen && (
-        <div ref={menuRef}>
+        <div
+          ref={menuRef}
+          className="absolute  left-0 text-white transition-all duration-300 ease-in-out"
+        >
           <Menubar />
         </div>
       )}
-    </div>
+    </nav>
   );
 };
 
