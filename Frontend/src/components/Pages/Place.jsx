@@ -1,39 +1,115 @@
-import React from 'react';
+// 
+// import React, { useEffect } from 'react';
+// import { useParams } from 'react-router-dom';
+// import ProductPage from './ProductPage';
+// import { ProductProvider } from '../Store/ProductProvider'; // ✅ Zustand store
+
+// const Place = () => {
+//   const { productId } = useParams();
+//   const { products, fetchProducts } = ProductProvider(); // ✅ Zustand hook
+
+//   useEffect(() => {
+//     if (products.length === 0) {
+//       fetchProducts(); // fetch only if not already fetched
+//     }
+//   }, [fetchProducts, products]);
+
+//   const product = products.find((p) => p._id === productId);
+
+//   if (!product) {
+//     return (
+//       <div className="flex justify-center items-center h-screen">
+//         <p className="text-gray-600 text-xl">Loading product details...</p>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="relative w-full min-h-screen overflow-hidden bg-gray-50">
+//       <ProductPage product={product} />
+//     </div>
+//   );
+// };
+
+// export default Place;
+
+// import React, { useEffect } from 'react';
+// import { useParams } from 'react-router-dom';
+// import ProductPage from './ProductPage';
+// import { ProductProvider } from '../Store/ProductProvider';
+
+// const Place = () => {
+//   const { productId } = useParams();
+//   const { products, fetchProducts } = ProductProvider();
+
+//   useEffect(() => {
+//     if (products.length === 0) {
+//       fetchProducts();
+//     }
+//   }, [fetchProducts, products]);
+
+//   const product = products.find((p) => p._id === productId);
+
+//   if (!product) {
+//     return (
+//       <div className="flex justify-center items-center h-screen ">
+//         <p className="text-gray-600 text-xl">Loading product details...</p>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="w-full min-h-screen bg-gray-900 pt-24 px-4 sm:px-6 lg:px-12">
+//       {/* pt-24 pushes content below navbar (adjust if your navbar is taller/shorter) */}
+//       <div className="max-w-7xl mx-auto">
+//         <ProductPage product={product} />
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Place;
+
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { ProductProvider } from '../Store/ProductProvider.js';
-import ProductPage from './ProductPage.jsx';
+import ProductPage from './ProductPage';
+import { ProductProvider } from '../Store/ProductProvider';
 
 const Place = () => {
+  const { productId } = useParams();
+  const { products, fetchProducts, isLoading } = ProductProvider();
 
-    const { productId} = useParams();
-    const { products} = ProductProvider();
-
-    const product = products.find((p) => p._id === productId);
-
-    if(!product) {
-         
-        return <p>Loading ...</p>
+  useEffect(() => {
+    if (products.length === 0) {
+      fetchProducts();
     }
+  }, [fetchProducts, products]);
 
+  const product = products.find((p) => p._id === productId);
 
+  if (isLoading && products.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-gray-600 text-xl">Loading product details...</p>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-red-500 text-xl">Product not found.</p>
+      </div>
+    );
+  }
 
   return (
-    <>
-       <div className="relative w-screen min-h-screen overflow-hidden">
-            <div className="flex flex-wrap justify-center">
-            {/* {product.image.map((i, index) => (
-          <img key={index} src={i} alt={`${product.name} - image ${index + 1}`} className="w-80 h-64 object-cover m-4" />
-        ))} */}
-        <ProductPage product={product}/>
-            </div>
-       <div className='flex flex-col rounded-lg shadow-lg'>
-        <h1>{product.name}</h1>
-        <h2>{product.price}</h2>
-        <h2>{product.duration}</h2>
-       </div>
-       </div>
-    </>
-  )
-}
+    <div className="w-full min-h-screen bg-gray-700 pt-24 px-4 sm:px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto">
+        <ProductPage product={product} />
+      </div>
+    </div>
+  );
+};
 
 export default Place;
