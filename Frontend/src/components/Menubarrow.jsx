@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 function Menurow({Icon, title, text}) {
   return (
-    <div className='flex items-center py-3 px-4 '>
+    <div className='flex items-center py-3 px-4 bg-zinc-500 rounded-md '>
       <NavLink
         to={`/${text}`}
         className='flex items-center text-neutral-400 transform transition-transform duration-300 hover:scale-125 hover:text-white'>

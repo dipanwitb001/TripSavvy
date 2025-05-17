@@ -7,7 +7,7 @@ import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg';
 
 function Menubar ()  {
   return (
-    <div  className=' absolute left-2 pt-4 h-48 w-52 '>
+    <div  className=' absolute left-2 md:left-12 pt-4 h-44 w-52 space-y-1'>
       {/* <div>
         <h1 className='w-48 h-36 text-4xl p-10 text-white'>Trip<span className='text-5xl text-orange-800 italic'>S</span>av<span className='text-5xl text-orange-800 font-bold'>v</span>y</h1>
       </div> */}
