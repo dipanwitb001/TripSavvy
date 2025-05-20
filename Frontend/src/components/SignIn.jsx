@@ -1,57 +1,221 @@
-// import React,{useState} from 'react';
+
+// import React, { useState } from 'react';
 // import signIn from '../images/signIn.jpg';
 // import { Link } from 'react-router-dom';
+// import axios from 'axios';
+// import Validation from './LoginValidation';
 
 // const SignIn = () => {
-//   const[loginClicked, setLoginClicked] = useState(false);
-//   const[signupClicked, setSignupClicked] = useState(true);
+//   const [values, setValues] = useState({
+//     fullName: '',
+//     username: '',
+//     phoneNumber: '',
+//     email: '',
+//     password: '',
+//     confirmPassword: '',
+//   });
 
+//   const [errors, setErrors] = useState({});
+//   const [isCheckboxChecked, setCheckboxChecked] = useState(false);
+//   const [isAccountCreated, setAccountCreated] = useState(false);
+//   const [successMessage, setSuccessMessage] = useState('');
+
+//   const handleInput = (event) => {
+//     const { name, value, type, checked } = event.target;
+//     if (type === 'checkbox') {
+//       setCheckboxChecked(checked);
+//     } else {
+//       setValues((prev) => ({ ...prev, [name]: value }));
+//     }
+//   };
+
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+//     const validationErrors = Validation(values);
+//     setErrors(validationErrors);
+
+//     if (
+//       !validationErrors.fullName &&
+//       !validationErrors.username &&
+//       !validationErrors.phoneNumber &&
+//       !validationErrors.email &&
+//       !validationErrors.password &&
+//       !validationErrors.confirmPassword &&
+//       isCheckboxChecked
+//     ) {
+//       axios
+//         .post('https://tripsavvy-backend.onrender.com/api/v1/users/register', values)
+//         .then((res) => {
+//           console.log(res);
+//           setAccountCreated(true);
+//           setSuccessMessage('Account created successfully');
+//           setValues({
+//             fullName: '',
+//             username: '',
+//             phoneNumber: '',
+//             email: '',
+//             password: '',
+//             confirmPassword: '',
+//           });
+//         })
+//         .catch((err) => {
+//           console.log(err);
+//           setAccountCreated(false);
+//         });
+//     } else if (!isCheckboxChecked) {
+//       setErrors((prev) => ({
+//         ...prev,
+//         checkbox: 'You must agree to the Terms of Use',
+//       }));
+//     }
+//   };
 
 //   return (
-//     <div>
-//       <div className="relative w-screen h-screen overflow-hidden">
-//         <img src={signIn} alt="About" className="absolute top-0 left-0 w-full h-full object-cover" />
+//     <div className="relative w-screen h-screen overflow-hidden">
+//       <img
+//         src={signIn}
+//         alt="Background"
+//         className="absolute top-0 left-0 w-full h-full object-cover"
+//       />
 
-//         {/* Dark Overlay */}
-//         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+//       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
 
-//         <div className='bg-slate-800 border border-slate-400 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative w-3/12  mx-auto my-auto top-1/2 transform -translate-y-1/2'>
-//           <form action="">
-//             <h1 className="text-white mb-4 text-2xl font-bold relative left-44">{loginClicked ? 'Login' : 'Sign Up'}</h1>
-//             <div className="mb-4">
-//               <label htmlFor="email" className="block text-white">Your Email</label>
-//               <input type="email" id="email" className="w-full p-2 mt-1 rounded-md bg-gray-200" />
-//             </div>
-//             <div className="mb-4">
-//               <label htmlFor="password" className="block text-white">Password</label>
-//               <input type="password" id="password" className="w-full p-2 mt-1 rounded-md bg-gray-200" />
-//             </div>
-//             <div className="mb-4 flex items-center justify-between">
-//               <div>
-//                 <input type="checkbox" id="rememberMe" className="mr-2" />
-//                 <label htmlFor="rememberMe" className="text-white">Remember Me</label>
+//       <div className="relative z-10 flex justify-center items-center w-full h-full p-4">
+//         <div className="bg-slate-800 border border-slate-400 rounded-lg p-6 sm:p-8 shadow-xl backdrop-filter backdrop-blur-md bg-opacity-60 w-full max-w-md overflow-y-auto max-h-[90vh]">
+//           {isAccountCreated ? (
+//             <div>
+//               <div className="mb-4 p-2 text-green-400 rounded-md text-center">
+//                 {successMessage}
 //               </div>
-//               <span className="text-blue-500 cursor-pointer">Forget Password</span>
-//             </div >
-//             <div className='flex justify-between'>
-//                  <button type='submit'  className={`w-3/6 p-2 mt-4 mr-1 text-white rounded-md 
-//                  ${loginClicked? 'bg-gray-500' : 'bg-blue-500'}`} 
-//                  onClick={() => {setLoginClicked(true);
-//                                 setSignupClicked(false);
-
-//                  }}>Login</button>
-//                 <button type=''  className={`w-3/6 p-2 mt-4 mr-1 text-white rounded-md 
-//                 ${signupClicked ? 'bg-gray-500' : 'bg-blue-500'}`} 
-//                 onClick={() => {setSignupClicked(true);
-//                                 setLoginClicked(false);
-
-//                 }}>Sign Up</button>
+//               <Link to="/Login">
+//                 <button
+//                   type="button"
+//                   className="w-full px-4 py-2 mt-4 text-white rounded-md bg-blue-600 hover:bg-blue-700"
+//                 >
+//                   Login
+//                 </button>
+//               </Link>
 //             </div>
-            
-//             {/* <div className="mt-4 text-center">
-//               <span className="text-white">New Here? <Link to='/Register' className="text-blue-500">Create an Account</Link></span>
-//             </div> */}
-//           </form>
+//           ) : (
+//             <form onSubmit={handleSubmit}>
+//               <h1 className="text-white mb-6 text-3xl font-semibold text-center">Sign Up</h1>
+
+//               <div className="mb-4">
+//                 <label htmlFor="fullname" className="block text-white">Full Name</label>
+//                 <input
+//                   type="text"
+//                   id="fullname"
+//                   name="fullName"
+//                   value={values.fullName}
+//                   onChange={handleInput}
+//                   required
+//                   className="w-full p-2 mt-1 rounded-md bg-gray-200"
+//                 />
+//                 {errors.fullName && <span className="text-red-600 text-sm">{errors.fullName}</span>}
+//               </div>
+
+//               <div className="mb-4">
+//                 <label htmlFor="username" className="block text-white">User Name</label>
+//                 <input
+//                   type="text"
+//                   id="username"
+//                   name="username"
+//                   value={values.username}
+//                   onChange={handleInput}
+//                   required
+//                   className="w-full p-2 mt-1 rounded-md bg-gray-200"
+//                 />
+//                 {errors.username && <span className="text-red-600 text-sm">{errors.username}</span>}
+//               </div>
+
+//               <div className="mb-4">
+//                 <label htmlFor="phone" className="block text-white">Phone no.</label>
+//                 <input
+//                   type="number"
+//                   id="phone"
+//                   name="phoneNumber"
+//                   value={values.phoneNumber}
+//                   onChange={handleInput}
+//                   required
+//                   placeholder="Enter your phone number"
+//                   className="w-full p-2 mt-1 rounded-md bg-gray-200"
+//                 />
+//                 {errors.phoneNumber && <span className="text-red-600 text-sm">{errors.phoneNumber}</span>}
+//               </div>
+
+//               <div className="mb-4">
+//                 <label htmlFor="email" className="block text-white">Your Email</label>
+//                 <input
+//                   type="email"
+//                   id="email"
+//                   name="email"
+//                   value={values.email}
+//                   onChange={handleInput}
+//                   required
+//                   className="w-full p-2 mt-1 rounded-md bg-gray-200"
+//                 />
+//                 {errors.email && <span className="text-red-600 text-sm">{errors.email}</span>}
+//               </div>
+
+//               <div className="mb-4">
+//                 <label htmlFor="password" className="block text-white">Password</label>
+//                 <input
+//                   type="password"
+//                   id="password"
+//                   name="password"
+//                   value={values.password}
+//                   onChange={handleInput}
+//                   className="w-full p-2 mt-1 rounded-md bg-gray-200"
+//                 />
+//                 {errors.password && <span className="text-red-600 text-sm">{errors.password}</span>}
+//               </div>
+
+//               <div className="mb-4">
+//                 <label htmlFor="confirmPassword" className="block text-white">Confirm Password</label>
+//                 <input
+//                   type="password"
+//                   id="confirmPassword"
+//                   name="confirmPassword"
+//                   value={values.confirmPassword}
+//                   onChange={handleInput}
+//                   className="w-full p-2 mt-1 rounded-md bg-gray-200"
+//                 />
+//                 {errors.confirmPassword && <span className="text-red-600 text-sm">{errors.confirmPassword}</span>}
+//               </div>
+
+//               <div className="mb-4 flex items-center">
+//                 <input
+//                   type="checkbox"
+//                   id="rememberMe"
+//                   name="checkbox"
+//                   checked={isCheckboxChecked}
+//                   onChange={handleInput}
+//                   className="mr-2"
+//                 />
+//                 <label htmlFor="rememberMe" className="text-white">
+//                   I agree to the <span className="font-bold">Terms of Use</span>
+//                 </label>
+//               </div>
+//               {errors.checkbox && <span className="text-red-600 text-sm">{errors.checkbox}</span>}
+
+//               <div className="flex flex-col sm:flex-row justify-between gap-3 mt-6">
+//                 <Link to="/Login" className="w-full sm:w-1/2">
+//                   <button
+//                     type="button"
+//                     className="w-full px-4 py-2 text-white rounded-md bg-gray-700 hover:bg-gray-800"
+//                   >
+//                     Login
+//                   </button>
+//                 </Link>
+//                 <button
+//                   type="submit"
+//                   className="w-full sm:w-1/2 px-4 py-2 text-white rounded-md bg-blue-600 hover:bg-blue-700"
+//                 >
+//                   Sign Up
+//                 </button>
+//               </div>
+//             </form>
+//           )}
 //         </div>
 //       </div>
 //     </div>
@@ -60,110 +224,6 @@
 
 // export default SignIn;
 
-
-
-
- // return (
-  //   <div>
-  //     <div className="relative w-screen h-screen overflow-hidden">
-  //       <img src={signIn} alt="Background" className="absolute top-0 left-0 w-full h-full object-cover" />
-
-  //       {/* Dark Overlay */}
-  //       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
-
-  //       <div className='bg-slate-800 border border-slate-400 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative w-3/12 mx-auto my-auto top-1/2 transform -translate-y-1/2'>
-  //         <form onSubmit={handleSubmit}>
-  //           <h1 className="text-white mb-4 text-2xl font-bold text-center">{action}</h1>
-  //            {action === 'Login' ? <div></div> : 
-  //              <div >
-
-  //               <div className='mb-4'>
-  //              <label htmlFor="name" className="block text-white">Full Name</label>
-  //              <input 
-  //              type="name" 
-  //              id="name" 
-  //              name='fullName' 
-  //              required 
-  //              className="w-full p-2 mt-1 rounded-md bg-gray-200" />
-  //              </div>
-
-  //             <div className='mb-4'>
-  //              <label htmlFor="name" className="block text-white">User Name</label>
-  //              <input type="name" id="name" required className="w-full p-2 mt-1 rounded-md bg-gray-200" />
-  //              </div>
-
-  //             <div className='mb-4'>
-  //              <label htmlFor="number" required className="block text-white">Phone no.</label>
-  //              <input
-  //               type="tel"
-  //               id="phone"
-  //               className="w-full p-2 mt-1 rounded-md bg-gray-200"
-  //               placeholder="Enter your phone number"
-  //               required
-  //             />
-  //              </div>
-
-  //            </div>
-  //           }
-           
-  //           <div className="mb-4">
-  //             <label htmlFor="email" className="block text-white">Your Email</label>
-  //             <input type="email" id="email" className="w-full p-2 mt-1 rounded-md bg-gray-200" />
-  //           </div>
-  //           <div className="mb-4">
-  //             <label htmlFor="password" className="block text-white">Password</label>
-  //             <input type="password" id="password" className="w-full p-2 mt-1 rounded-md bg-gray-200" />
-  //           </div>
-  //           {action === 'Login'? <div></div>:
-  //             <div >
-  //               <div className="mb-4">
-  //                 <label htmlFor="password" className="block text-white">Confirm Password</label>
-  //                 <input type="password" id="password" className="w-full p-2 mt-1 rounded-md bg-gray-200" />
-  //               </div>
-  //               <div>
-  //               <input type="checkbox" id="rememberMe" className="mr-2" />
-  //               <label htmlFor="rememberMe" className="text-white">I agree to the <span className='font-bold'>Terms of User</span></label>
-  //             </div>
-  //           </div>
-  //           }
-  //           {action === 'Sign Up'? <div></div> :
-  //             <div className="mb-4 flex items-center justify-between">
-  //             <div>
-  //               <input type="checkbox" id="rememberMe" className="mr-2" />
-  //               <label htmlFor="rememberMe" className="text-white">Remember Me</label>
-  //             </div>
-  //             <Link to="/forget-password" className="text-blue-500 cursor-pointer">Forget Password</Link>
-  //           </div>
-  //           }
-            
-  //           <div className='flex justify-between'>
-  //             <button
-  //               type='submit'
-  //               className={`w-3/6 p-2 mt-4 mr-1 text-white rounded-md ${action === 'Login' ? 'bg-gray-500' : 'bg-blue-500'}`}
-  //               onClick={() => setAction('Login')}
-                
-  //             >
-  //               Login
-  //             </button>
-  //             <button
-  //               type='submit'
-  //               className={`w-3/6 p-2 mt-4 mr-1 text-white rounded-md ${action === 'Sign Up' ? 'bg-gray-500' : 'bg-blue-500'}`}
-  //               onClick={() => setAction('Sign Up')}
-  //             >
-  //               Sign Up
-  //             </button>
-  //           </div>
-  //         </form>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
-
-
-
-
-
-
 import React, { useState } from 'react';
 import signIn from '../images/signIn.jpg';
 import { Link } from 'react-router-dom';
@@ -171,248 +231,225 @@ import axios from 'axios';
 import Validation from './LoginValidation';
 
 const SignIn = () => {
-  //const [action, setAction] = useState('Sign Up');
- //const [phoneNumber, setPhoneNumber] = useState('');
-
- const [values,setValues] = useState({
-  fullName: '',
-  username: '',
-  phoneNumber: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-  })
+  const [values, setValues] = useState({
+    fullName: '',
+    username: '',
+    phoneNumber: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
 
   const [errors, setErrors] = useState({});
   const [isCheckboxChecked, setCheckboxChecked] = useState(false);
-
-
-  const[isAccountCreated, setAccountCreated] = useState(false);
+  const [isAccountCreated, setAccountCreated] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
-const handleInput = (event) => {
-  const{name,value,type,checked} = event.target;
-  if(type === 'checkbox')
-    {
+  const handleInput = (event) => {
+    const { name, value, type, checked } = event.target;
+    if (type === 'checkbox') {
       setCheckboxChecked(checked);
-    }
-    else{
+      // Clear checkbox error immediately when checkbox is clicked
+      setErrors((prev) => ({ ...prev, checkbox: '' }));
+    } else {
       setValues((prev) => ({ ...prev, [name]: value }));
     }
-  // setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-};
+  };
 
-const handleSubmit = (event) => {
-  event.preventDefault();
-  //setErrors(Validation(values));
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const validationErrors = Validation(values);
 
-  const validationErrors = Validation(values);
-    // if (!isCheckboxChecked) {
-    //   validationErrors.checkbox = "You must agree to the Terms of Use";
-    // }
-    
+    // If checkbox is checked, remove checkbox error if present
+    if (isCheckboxChecked) {
+      delete validationErrors.checkbox;
+    }
+
     setErrors(validationErrors);
-    // !errors.fullName && !errors.username && !errors.phoneNumber && !errors.email && !errors.password && !errors.confirmPassword
-    // !Object.keys(validationErrors).length
-  if (!errors.fullName && !errors.username && !errors.phoneNumber && !errors.email && !errors.password && !errors.confirmPassword && !errors.checkbox) {
-    axios
-      .post('https://tripsavvy-backend.onrender.com/api/v1/users/register', values)
-      .then((res) => {
-        console.log(res);
-        setAccountCreated(true);
-        setSuccessMessage('Account created successfully'); //display success message
 
-        // reseting the form fields
-        setValues({
-          fullName: '',
-          username: '',
-          phoneNumber: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
+    if (
+      !validationErrors.fullName &&
+      !validationErrors.username &&
+      !validationErrors.phoneNumber &&
+      !validationErrors.email &&
+      !validationErrors.password &&
+      !validationErrors.confirmPassword &&
+      isCheckboxChecked
+    ) {
+      axios
+        .post('https://tripsavvy-backend.onrender.com/api/v1/users/register', values)
+        .then((res) => {
+          console.log(res);
+          setAccountCreated(true);
+          setSuccessMessage('Account created successfully');
+          setValues({
+            fullName: '',
+            username: '',
+            phoneNumber: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+          });
+          setCheckboxChecked(false); // Reset checkbox on success
+        })
+        .catch((err) => {
+          console.log(err);
+          setAccountCreated(false);
         });
-      } )
-      .catch((err) => {
-        console.log(err);
-        setAccountCreated(false);
-      });
-  }
-};
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
+    } else if (!isCheckboxChecked) {
+      setErrors((prev) => ({
+        ...prev,
+        checkbox: 'You must agree to the Terms of Use',
+      }));
+    }
+  };
 
   return (
-    <div>
-      <div className="relative w-screen h-screen overflow-hidden">
-        <img src={signIn} alt="Background" className="absolute top-0 left-0 w-full h-full object-cover" />
+    <div className="relative w-screen h-screen overflow-hidden">
+      <img
+        src={signIn}
+        alt="Background"
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      />
 
-        {/* Dark Overlay */}
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
 
-        <div className='bg-slate-800 border border-slate-400 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative w-3/12 mx-auto my-auto top-1/2 transform -translate-y-1/2'>
-
-         {/* Display Success Message */}
-            { isAccountCreated && (
-              <div>
-              <div className="mb-4 p-2  text-green-400 rounded-md">
+      <div className="relative z-10 flex justify-center items-center w-full h-full p-4 transform translate-y-10 sm:translate-y-16">
+        <div className="bg-slate-800 border border-slate-400 rounded-lg p-6 sm:p-8 shadow-xl backdrop-filter backdrop-blur-md bg-opacity-30 w-full max-w-md overflow-y-auto max-h-[90vh]">
+          {isAccountCreated ? (
+            <div>
+              <div className="mb-4 p-2 text-green-400 rounded-md text-center">
                 {successMessage}
               </div>
               <Link to="/Login">
-              <button
-                type='button'
-                className="w-1 p-2 mt-4 mr-1 text-white rounded-md bg-blue-500"
-                //onClick={() => setAction('Login')}
-                
-              >
-                Login
-              </button>
+                <button
+                  type="button"
+                  className="w-full px-4 py-2 mt-4 text-white rounded-md bg-blue-600 hover:bg-blue-700"
+                >
+                  Login
+                </button>
               </Link>
-              </div>
-            )}
-          {!isAccountCreated && (
-
-              
-          <form onSubmit={handleSubmit}>
-            <h1 className="text-white mb-4 text-2xl font-bold text-center">Sign Up</h1> 
-
-
-           
-
-
-               <div >
-
-                <div className='mb-4'>
-               <label htmlFor="name" className="block text-white">Full Name</label>
-               <input 
-               type="text" 
-               id="fullname" 
-               name='fullName' 
-               value={values.fullName}
-               required 
-               onChange={handleInput}
-               className="w-full p-2 mt-1 rounded-md bg-gray-200" />
-               {errors.fullName && <span className='text-red-700'>{errors.fullName}</span>}
-               </div>
-
-              <div className='mb-4'>
-               <label htmlFor="name" className="block text-white">User Name</label>
-               <input 
-               type="name" 
-               id="username" 
-               name='username'
-               value={values.username}
-               onChange={handleInput}
-               required 
-               className="w-full p-2 mt-1 rounded-md bg-gray-200" />
-               {errors.username && <span className='text-red-700'>{errors.username}</span>}
-               </div>
-
-              <div className='mb-4'>
-               <label htmlFor="number" required className="block text-white">Phone no.</label>
-               <input
-                type="number"
-                id="phone"
-                name='phoneNumber'
-                onChange={handleInput}
-                value={values.phoneNumber}
-                className="w-full p-2 mt-1 rounded-md bg-gray-200"
-                placeholder="Enter your phone number"
-                required
-              />
-              {errors.phoneNumber && <span className='text-red-700'>{errors.phoneNumber}</span>}
-               </div>
-
-             </div>
-            
-           
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-white">Your Email</label>
-              <input 
-              type="email" 
-              id="email"
-              name='email'
-              onChange={handleInput}
-              value={values.email}
-              required
-              className="w-full p-2 mt-1 rounded-md bg-gray-200" />
-              {errors.email && <span className='text-red-700'>{errors.email}</span>}
             </div>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <h1 className="text-white mb-6 text-3xl font-semibold text-center">Sign Up</h1>
 
-            
-            <div className="mb-4">
-              <label htmlFor="password" className="block text-white">Password</label>
-              <input 
-              type="password" 
-              id="password" 
-              name='password'
-              onChange={handleInput}
-              value={values.password}
-              className="w-full p-2 mt-1 rounded-md bg-gray-200" />
-              {errors.password && <span className='text-red-700'>{errors.password}</span>}
-            </div>
-            
-              <div >
-                <div className="mb-4">
-                  <label htmlFor="password" className="block text-white">Confirm Password</label>
-                  <input 
-                  type="password" 
-                  id="confirmPassword"
+              <div className="mb-4">
+                <label htmlFor="fullname" className="block text-white">Full Name</label>
+                <input
+                  type="text"
+                  id="fullname"
+                  name="fullName"
+                  value={values.fullName}
                   onChange={handleInput}
+                  required
+                  className="w-full p-2 mt-1 rounded-md bg-gray-200"
+                />
+                {errors.fullName && <span className="text-red-600 text-sm">{errors.fullName}</span>}
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="username" className="block text-white">User Name</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={values.username}
+                  onChange={handleInput}
+                  required
+                  className="w-full p-2 mt-1 rounded-md bg-gray-200"
+                />
+                {errors.username && <span className="text-red-600 text-sm">{errors.username}</span>}
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="phone" className="block text-white">Phone no.</label>
+                <input
+                  type="number"
+                  id="phone"
+                  name="phoneNumber"
+                  value={values.phoneNumber}
+                  onChange={handleInput}
+                  required
+                  placeholder="Enter your phone number"
+                  className="w-full p-2 mt-1 rounded-md bg-gray-200"
+                />
+                {errors.phoneNumber && <span className="text-red-600 text-sm">{errors.phoneNumber}</span>}
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-white">Your Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={values.email}
+                  onChange={handleInput}
+                  required
+                  className="w-full p-2 mt-1 rounded-md bg-gray-200"
+                />
+                {errors.email && <span className="text-red-600 text-sm">{errors.email}</span>}
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="password" className="block text-white">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={values.password}
+                  onChange={handleInput}
+                  className="w-full p-2 mt-1 rounded-md bg-gray-200"
+                />
+                {errors.password && <span className="text-red-600 text-sm">{errors.password}</span>}
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="confirmPassword" className="block text-white">Confirm Password</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
                   value={values.confirmPassword}
-                  name='confirmPassword'
-                  className="w-full p-2 mt-1 rounded-md bg-gray-200" />
-                  {errors.confirmPassword && <span className='text-red-700'>{errors.confirmPassword}</span>}
-                </div>
+                  onChange={handleInput}
+                  className="w-full p-2 mt-1 rounded-md bg-gray-200"
+                />
+                {errors.confirmPassword && <span className="text-red-600 text-sm">{errors.confirmPassword}</span>}
+              </div>
 
-                <div>
-                <input type="checkbox" id="rememberMe" className="mr-2" />
-                <label htmlFor="rememberMe" className="text-white">I agree to the <span className='font-bold'>Terms of User</span></label>
-                {errors.checkbox && <span className='text-red-700'>{errors.checkbox}</span>}
-                </div>
-            </div>
-            
-            
+              <div className="mb-4 flex items-center">
+                <input
+                  type="checkbox"
+                  id="rememberMe"
+                  name="checkbox"
+                  checked={isCheckboxChecked}
+                  onChange={handleInput}
+                  className="mr-2"
+                />
+                <label htmlFor="rememberMe" className="text-white">
+                  I agree to the <span className="font-bold">Terms of Use</span>
+                </label>
+              </div>
+              {errors.checkbox && <span className="text-red-600 text-sm">{errors.checkbox}</span>}
 
-            
-            <div className='flex justify-between'>
-              <Link to="/Login">
-              <button
-                type='button'
-                className="w-1 p-2 mt-4 mr-1 text-white rounded-md bg-blue-500"
-                //onClick={() => setAction('Login')}
-                
-              >
-                Login
-              </button>
-              </Link>
-              <button
-                type='submit'
-                className="w-3/6 p-2 mt-4 mr-1 text-white rounded-md bg-blue-500"
-                //onClick={() => setAction('Sign Up')}
-              >
-                Sign Up
-              </button>
-            </div>
-          </form>
-           ) }
+              <div className="flex flex-col sm:flex-row justify-between gap-3 mt-6">
+                <Link to="/Login" className="w-full sm:w-1/2">
+                  <button
+                    type="button"
+                    className="w-full px-4 py-2 text-white rounded-md bg-gray-700 hover:bg-gray-800"
+                  >
+                    Login
+                  </button>
+                </Link>
+                <button
+                  type="submit"
+                  className="w-full sm:w-1/2 px-4 py-2 text-white rounded-md bg-blue-600 hover:bg-blue-700"
+                >
+                  Sign Up
+                </button>
+              </div>
+            </form>
+          )}
         </div>
       </div>
     </div>
